@@ -56,16 +56,24 @@ function computerPlay(){
 }
 
 function findWhoWon(){
-    if(computerScore > playerScore){
-        console.log("The computer won! Better luck next time...")
+    if(playerScore >= 5){
+       alert("You have won with a score of " + playerScore + ". And the computer had " + computerScore + ".") 
+       return true 
     }
-    else if (computerScore < playerScore){
-        console.log("You Won! Good job!")
+    else if(computerScore >= 5){
+        alert("You have lost! You:" + playerScore + " Computer:" + computerScore);
+        return true
+    }
+    else if(playerScore < 5){
+        return false
+    }
+    else if (computerScore < 5){
+        return false
     }
     else{
-        console.log("It was a tie...")
+        alert("You have tied with the computer!")
+        return false
     }
-    
 }
 function game(){
 }
@@ -73,21 +81,23 @@ function game(){
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
-        playerSelection = button.id;
+        if(!findWhoWon()){
+            playerSelection = button.id;
 
-        //console.log(playerSelection)
-        var pRound = document.createElement('p');
-        pRound.classList.add('pRound');
-        pRound.textContent = playRound(playerSelection);
+            //console.log(playerSelection)
+            var pRound = document.createElement('p');
+            pRound.classList.add('pRound');
+            pRound.textContent = playRound(playerSelection);
 
-        //add player score propery to the message div
-        var playerScoreP = document.createElement('p');
-        playerScoreP.classList.add('playerScoreP');
-        playerScoreP.textContent = ("Your score is " + playerScore.toString());
+            //add player score propery to the message div
+            var playerScoreP = document.createElement('p');
+            playerScoreP.classList.add('playerScoreP');
+            playerScoreP.textContent = ("Your score is " + playerScore.toString());
 
-        messageDiv.appendChild(playerScoreP);
-        messageDiv.appendChild(pRound);
-        //console.log(playerSelection)
+            messageDiv.appendChild(playerScoreP);
+            messageDiv.appendChild(pRound);
+            //console.log(playerSelection)
+        }
     });
 });
 
