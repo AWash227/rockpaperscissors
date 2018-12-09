@@ -1,10 +1,12 @@
 //Global Vars
 playerScore = 0
 computerScore = 0
+var playerSelection
+const messageDiv = document.querySelector('#messageDiv');
 
-function playRound(){
+
+function playRound(playerSelection){
     var message
-    const playerSelection = prompt("Type in either 'rock', 'paper', or 'scissors': ")
     const computerSelection = computerPlay()
     if (playerSelection == computerSelection){
         message = "It's a Tie. You both chose the same thing!"
@@ -49,7 +51,7 @@ function computerPlay(){
         compPlay = 'paper'
     else
         compPlay = 'scissors'
-    console.log(rand)
+    //console.log(rand)
     return compPlay
 }
 
@@ -66,13 +68,26 @@ function findWhoWon(){
     
 }
 function game(){
-    i = 1
-    while(i <= 5){
-    console.log(playRound())
-    i++
-    console.log("Your score is " + playerScore)
-    }
-    console.log("The computer had " + computerScore + " points, and you had " + playerScore + " points.")
-    findWhoWon()
 }
-game()
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        playerSelection = button.id;
+
+        //console.log(playerSelection)
+        var pRound = document.createElement('p');
+        pRound.classList.add('pRound');
+        pRound.textContent = playRound(playerSelection);
+
+        //add player score propery to the message div
+        var playerScoreP = document.createElement('p');
+        playerScoreP.classList.add('playerScoreP');
+        playerScoreP.textContent = ("Your score is " + playerScore.toString());
+
+        messageDiv.appendChild(playerScoreP);
+        messageDiv.appendChild(pRound);
+        //console.log(playerSelection)
+    });
+});
+
